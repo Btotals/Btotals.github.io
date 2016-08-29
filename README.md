@@ -77,3 +77,36 @@ customConfig: function() {
   });
 }
 ```
+
+##附录: Event-emitter的使用
+
+项目内提供一个单独的`Event-emitter`模块，类似node的`event`模块。提供`on`，`off`，`trigger`三个接口。
+
+`on`接口保证注册到同一`event`上的`handler`按照注册顺序执行。每一次调用都会返回对应的`handlerId`用于移除。
+
+```
+.on(eventName, callback)
+@param    eventName    {string}    需要增加handler的事件名
+@param    callback     {function}  监听到事件时执行的回调
+@return   handlerId    {symbol}    唯一标识handler的id
+```
+
+`off`接口使用同样类似，用于移除handler。两个参数均为可选值。
+
+1. 仅提供`eventName`: 移除该事件所有的handler
+2. 仅提供`handlerId`: 移除对应的handler
+3. 均提供: 表现和**2**一致
+
+```
+.off([eventName] [,handlerId])
+@param    eventName    {string}   需要移除handler的事件名
+@param    handlerId    {symbol}   handler对应的ID
+```
+
+`trigger`接口用于手动触发某事件。
+
+```
+.trigger(eventName [,data])
+@param    eventName    {string}   需要触发的事件
+@param    data         {any}      传给事件handler的参数
+```
