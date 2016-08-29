@@ -1,0 +1,108 @@
+.mod-bubble {
+  position: absolute;
+  width: 238px;
+  min-height: 110px;
+  border-radius: 2px;
+  background-color: #fff;
+  padding: 20px;
+  border: solid 1px #C6C6C6;
+}
+.mod-bubble__corner {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 0;
+  display: inline-block;
+  border-width: 10px;
+  border-style: dashed dashed dashed solid;
+  z-index: 10;
+}
+.mod-bubble__corner__shadow {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 0;
+  display: inline-block;
+  border-width: 12px;
+  border-style: dashed dashed dashed solid;
+}
+.mod-bubbleLeft .mod-bubble__corner {
+  position: absolute;
+  right: -20px;
+  top: 20px;
+  border-color: transparent transparent transparent #fff;
+}
+.mod-bubbleLeft .mod-bubble__corner__shadow {
+  position: absolute;
+  right: -24px;
+  top: 18px;
+  border-color: transparent transparent transparent #C6C6C6;
+}
+.mod-bubbleRight .mod-bubble__corner {
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  border-color: transparent #fff transparent transparent;
+}
+.mod-bubbleRight .mod-bubble__corner__shadow {
+  position: absolute;
+  left: -24px;
+  top: 18px;
+  border-color: transparent #C6C6C6 transparent transparent;
+}
+.mod-bubbleTop .mod-bubble__corner {
+  position: absolute;
+  right: 20px;
+  bottom: -20px;
+  border-color: #fff transparent transparent transparent;
+}
+.mod-bubbleTop .mod-bubble__corner__shadow {
+  position: absolute;
+  right: 18px;
+  bottom: -24px;
+  border-color: #C6C6C6 transparent transparent transparent;
+}
+.mod-bubbleBottom .mod-bubble__corner {
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  border-color: transparent transparent #fff transparent ;
+}
+.mod-bubbleBottom .mod-bubble__corner__shadow {
+  position: absolute;
+  left: 18px;
+  top: -24px;
+  border-color: transparent transparent #C6C6C6 transparent;
+}
+.mod-bubble__title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #000;
+}
+.mod-bubble__text {
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #75777A;
+}
+.mod-bubble .btn {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0;
+  height: 30px;
+  line-height: 30px;
+}
+.mod-bubble__close {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-image: url(../img/bubble-close.png);
+}
+.mod-bubble__close:hover {
+  opacity: 0.85;
+  text-decoration: none;
+}
+

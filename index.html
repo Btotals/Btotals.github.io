@@ -1,1 +1,133 @@
-Hello world
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Guide Example</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <h1>guide 新手指引</h1>
+
+  <h2 class="js_guide_tip" tip-index="1" tip-direction="bottom">1. 引入</h2>
+
+  <pre><code>var Guide = require('lib/guide/guide.js');</code></pre>
+
+  <h2 class="js_guide_tip" tip-index="2" tip-direction="right">2. 准备工作</h2>
+
+  <p>需要出现指引的HTML元素添加专用类名<code>js_guide_tip</code>，然后添加<code>tip-index</code>属性表示顺序，以及<code>tip-direction</code>表示tip提示的气泡方向。</p>
+
+  <pre><code>&lt;a href="#" class="js_guide_tip" tip-index="1" tip-direction="top"&gt;test text 1&lt;/a&gt;<br>&lt;a href="#" class="js_guide_tip" tip-index="2" tip-direction="right"&gt;test text 2&lt;/a&gt;</code></pre>
+
+  <p><div class="btn btn_blue" id="js_start_guide">点击运行demo</div></p>
+
+  <p>然后是编写对应的文案，并使用<code>new</code>运算符创建guide实例。</p>
+
+  <pre><code>
+var options = {
+  1: {
+    title: "1. 引入",
+    text: "require lib中的guide.js",
+    direction: "left" // 如果HTML中未声明，则此处可以声明；若同时声明，则以HTML为准。
+  }, 2: {
+    title: "2. 准备工作",
+    text: "修改需要出现tip的HTML元素，添加必要的attr；编写对应的文案"
+  }, 3: {
+    title: "3. 接口与使用",
+    text: "按照下面文档的接口说明使用即可"
+  }
+};
+
+var guide = new Guide(options);
+  </code></pre>
+
+  <h2 class="js_guide_tip" tip-index="3" tip-direction="top">3. 接口与使用</h2>
+
+  <p>导航与控制方法：</p>
+
+  <ul>
+  <li>next/prev 方法导航到上一条/下一条；特别的：点击每一个tip的"下一步"都会调用guide.next导航至下一条。</li>
+  <li>start/end 方法控制Guide导引开始/结束</li>
+  <li>showTip/hideTip 方法控制当前tip的显示与隐藏</li>
+  <li>使用完成后调用destroy析构方法从页面上移除所有tip</li>
+  </ul>
+
+  <br>
+
+  <p>提供on方法监听事件：</p>
+  <p>on的几个对应事件: destroy/start/end/tipShow/tipHide</p>
+  <p>从左往右，分别对应Guide被实例化、被析构、开始引导、结束引导、显示tip、隐藏tip</p>
+  <p>事件接口格式:</p>
+
+  <ul>
+  <li>.on(eventName, callback)</li>
+  <li>.off([eventName] [,handlerId])</li>
+  <li>.trigger(eventName)</li>
+  </ul>
+
+  <pre><code>// on接口用法示例：点击上面的运行Demo后按钮会灰置（disabled），demo运行结束后再次可以点击
+var startButton = $('#js_start_guide');
+
+Guide.on('start', function() {
+  startButton.addClass('disabled');
+});
+
+Guide.on('end', function() {
+  startButton.removeClass('disabled');
+});
+  </code></pre>
+
+  <p>三个接口配合使用, handlerId存储传入handler函数对应的唯一Id值。</p>
+  <p>cb格式：@param {number} tipIndex 当前事件发生时当前tip的下标</p>
+
+  <br>
+
+  <p>on接口的使用： <code>var handlerId = guide.on('end', function(tipIndex){});</code></p>
+
+  <br>
+
+  <p>off接口的使用：</p>
+
+  <ul>
+  <li>移除所有handler: <code>guide.off();</code></li>
+  <li>移除start事件的所有handler: <code>guide.off('start');</code></li>
+  <li>移除某一个特定handler: <code>guide.off(handlerId);</code></li>
+  </ul>
+
+  <br>
+
+  <p>trigger接口的使用：<code>guide.trigger('start'); // 手动触发start事件的所有handler</code></p>
+
+  <p>提供钩子方法<code>customConfig</code>，可以在传入的options内增加customConfig函数，实现某些自定义的配置</p>
+  <p>eg: 让组件在页面url的hash部分变化的时候destroy</p>
+  <pre><code>
+customConfig: function() {
+  var self = this;
+  $(window).on('hashchange', function(){
+    console.log('hashchange, guide would be destroy!');
+    self.destroy();
+  });
+}
+  </code></pre>
+
+  <link rel="stylesheet" type="text/css" href="static/css/md.css">
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="static/css/index.css">
+  <script src="static/lib/sea.js"></script>
+  <script src="static/lib/seajs-text.js"></script>
+  <script src="static/lib/jquery-1.11.0.min.js"></script>
+  <script>
+    // Set configuration
+    seajs.config({
+      alias: {
+        "jquery": "/static/lib/jquery-1.11.0.min.js"
+      },
+      plugins: ['text']
+    });
+
+    seajs.use("./index.js");
+  </script>
+</body>
+
+
+</html>
