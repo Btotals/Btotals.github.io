@@ -1,5 +1,9 @@
 #guide 新手指引
 
+DEMO: [Click Me!](http://btotals.github.io/Guide/)
+
+---
+
 ##1. 引入
 ```
 var Guide = require('lib/guide/guide.js');
